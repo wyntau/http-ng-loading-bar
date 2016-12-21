@@ -5,7 +5,6 @@
 }(this, (function (exports) { 'use strict';
 
 var defaults = {
-    latencyThreshold: 50,
     includeBar: true,
     includeSpinner: true,
     loadingBarTemplate: '<div id="loading-bar"><div class="bar"><div class="peg"></div></div></div>',
@@ -22,37 +21,36 @@ var LoadingBar = (function () {
         this._status = 0;
     }
     LoadingBar.prototype.start = function () {
-        var _this = this;
         if (!this._mounted) {
             this.mount();
         }
         if (this._shown) {
             return;
         }
-        if (this._showTimeoutId) {
-            return;
+        if (this._endTimeoutId) {
+            clearTimeout(this._endTimeoutId);
         }
         this._shown = true;
-        this._showTimeoutId = setTimeout(function () {
-            _this.set(defaults.startSize);
-            if (defaults.includeBar) {
-                addClass(_this._barElem, 'shown');
-            }
-            if (defaults.includeSpinner) {
-                addClass(_this._spinnerElem, 'shown');
-            }
-        }, defaults.latencyThreshold);
+        this.set(defaults.startSize);
+        if (defaults.includeBar) {
+            addClass(this._barElem, 'shown');
+        }
+        if (defaults.includeSpinner) {
+            addClass(this._spinnerElem, 'shown');
+        }
     };
     LoadingBar.prototype.complete = function () {
+        var _this = this;
         if (!this._shown) {
             return;
         }
-        clearTimeout(this._showTimeoutId);
-        this._showTimeoutId = null;
         this.set(1);
-        removeClass(this._barElem, 'shown');
-        removeClass(this._spinnerElem, 'shown');
         this._shown = false;
+        clearTimeout(this._endTimeoutId);
+        this._endTimeoutId = setTimeout(function () {
+            removeClass(_this._barElem, 'shown');
+            removeClass(_this._spinnerElem, 'shown');
+        }, 300);
     };
     LoadingBar.prototype.set = function (n) {
         var _this = this;
@@ -60,7 +58,7 @@ var LoadingBar = (function () {
             return;
         }
         var pct = (n * 100) + '%';
-        this._barElem.style.width = pct;
+        this._barElem.querySelector('.bar').style.width = pct;
         this._status = n;
         // increment loadingbar to give the illusion that there is always
         // progress but make sure to cancel the previous timeouts so we don't

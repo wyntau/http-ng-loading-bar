@@ -1,5 +1,4 @@
 export let defaults = {
-  latencyThreshold: 50,
   includeBar: true,
   includeSpinner: true,
   loadingBarTemplate: '<div id="loading-bar"><div class="bar"><div class="peg"></div></div></div>',
@@ -17,8 +16,8 @@ class LoadingBar {
   private _barElem: HTMLElement;
   private _spinnerElem: HTMLElement;
 
-  private _showTimeoutId: number;
   private _incTimeoutId: number;
+  private _endTimeoutId: number;
 
   constructor(){
     this._mounted = false;
@@ -35,23 +34,20 @@ class LoadingBar {
       return;
     }
 
-    if(this._showTimeoutId){
-      return;
+    if(this._endTimeoutId){
+      clearTimeout(this._endTimeoutId);
     }
 
     this._shown = true;
+    this.set(defaults.startSize);
 
-    this._showTimeoutId = setTimeout(() => {
-      this.set(defaults.startSize);
+    if (defaults.includeBar) {
+      addClass(this._barElem, 'shown');
+    }
 
-      if (defaults.includeBar) {
-        addClass(this._barElem, 'shown');
-      }
-
-      if (defaults.includeSpinner) {
-        addClass(this._spinnerElem, 'shown');
-      }
-    }, defaults.latencyThreshold);
+    if (defaults.includeSpinner) {
+      addClass(this._spinnerElem, 'shown');
+    }
   }
 
   complete() {
@@ -59,15 +55,14 @@ class LoadingBar {
       return;
     }
 
-    clearTimeout(this._showTimeoutId);
-    this._showTimeoutId = null;
-
     this.set(1);
-
-    removeClass(this._barElem, 'shown');
-    removeClass(this._spinnerElem, 'shown');
-
     this._shown = false;
+
+    clearTimeout(this._endTimeoutId);
+    this._endTimeoutId = setTimeout(() => {
+      removeClass(this._barElem, 'shown');
+      removeClass(this._spinnerElem, 'shown');
+    }, 300);
   }
 
   set(n: number) {
@@ -76,7 +71,7 @@ class LoadingBar {
     }
     var pct = (n * 100) + '%';
 
-    this._barElem.style.width = pct;
+    (<HTMLElement>this._barElem.querySelector('.bar')).style.width = pct;
 
     this._status = n;
 
