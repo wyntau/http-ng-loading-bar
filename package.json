@@ -1,0 +1,27 @@
+{
+  "name": "http-ng-loading-bar",
+  "version": "0.1.0",
+  "description": "A automatic loading / progress bar for http-ng",
+  "main": "http-ng-loading-bar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c build/rollup.config.js && uglifyjs -m -o loading-bar.min.js -- loading-bar.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Treri/http-ng-loading-bar.git"
+  },
+  "author": "Treri",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Treri/http-ng-loading-bar/issues"
+  },
+  "homepage": "https://github.com/Treri/http-ng-loading-bar#readme",
+  "devDependencies": {
+    "http-ng": "^0.3.0",
+    "rollup": "^0.37.2",
+    "rollup-plugin-typescript": "^0.8.1",
+    "typescript": "^2.1.4",
+    "uglify-js": "^2.7.5"
+  }
+}
