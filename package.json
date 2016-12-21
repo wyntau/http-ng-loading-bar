@@ -1,6 +1,6 @@
 {
   "name": "http-ng-loading-bar",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A automatic loading / progress bar for http-ng",
   "main": "http-ng-loading-bar.js",
   "scripts": {
