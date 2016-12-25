@@ -1,8 +1,9 @@
 {
   "name": "http-ng-loading-bar",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A automatic loading / progress bar for http-ng",
-  "main": "http-ng-loading-bar.js",
+  "main": "loading-bar.js",
+  "types": "loading-bar.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c build/rollup.config.js && uglifyjs -m -o loading-bar.min.js -- loading-bar.js"
