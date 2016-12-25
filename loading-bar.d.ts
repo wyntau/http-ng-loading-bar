@@ -1,3 +1,5 @@
+import {IHttpInterceptor} from 'http-ng';
+
 export declare interface defaults {
   includeBar: boolean;
   includeSpinner: boolean;
@@ -8,10 +10,6 @@ export declare interface defaults {
   startSize: number;
 }
 
-declare let loadingBar: {
-  request: Function;
-  response: Function;
-  responseError: Function;
-};
+declare let loadingBar: IHttpInterceptor;
 
 export default loadingBar;

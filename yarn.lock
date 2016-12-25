@@ -60,9 +60,9 @@ estree-walker@^0.2.1:
   version "0.2.1"
   resolved "http://registry.npm.taobao.org/estree-walker/download/estree-walker-0.2.1.tgz#bdafe8095383d8414d5dc2ecf4c9173b6db9412e"
 
-http-ng@^0.3.0:
-  version "0.3.0"
-  resolved "http://registry.npm.taobao.org/http-ng/download/http-ng-0.3.0.tgz#dd6f9e56622d630cba2be3febead433906fbecc8"
+http-ng@^0.3.2:
+  version "0.3.2"
+  resolved "http://registry.npm.taobao.org/http-ng/download/http-ng-0.3.2.tgz#e10288746a4c179790cda78a18e5c4477ec48c7d"
 
 is-buffer@^1.0.2:
   version "1.1.4"
