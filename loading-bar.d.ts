@@ -8,10 +8,10 @@ export declare interface defaults {
   startSize: number;
 }
 
-declare interface loadingBar {
+declare let loadingBar: {
   request: Function;
   response: Function;
   responseError: Function;
-}
+};
 
 export default loadingBar;
